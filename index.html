@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cleaning Tools Suite</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style/style.css">
+</head>
+
+<body class="dark">
+
+    <nav>
+        <button onclick="showSection('cleaningCalc')">Cleaning Calculator</button>
+        <button onclick="showSection('termNegotiation')">Term Negotiation</button>
+        <button onclick="showSection('etfCalc')">ETF Calculator</button>
+        <button onclick="showSection('otcCalc')">OTC Trial Calculator</button>
+    </nav>
+    <!-- Notepad Widget -->
+    <div class="notepad-container">
+        <button onclick="toggleNotepad()" class="toggle-btn">🗒️ Notes</button>
+        <div id="notepad" class="notepad hidden">
+            <textarea id="noteArea" placeholder="Write your notes here..."></textarea>
+        </div>
+    </div>
+
+    </div>
+    <section id="cleaningCalc" class="active">
+        <h1>Cleaning Calculator</h1>
+        <label>Bedrooms: <input type="number" id="bedrooms" value="0" min="0" /></label>
+        <label>Bathrooms: <input type="number" id="bathrooms" value="1" min="0" /></label>
+        <label>Premium/Extra Hours: <input type="number" id="premiumAmount" value="0" min="0"></label>
+
+        <div>
+            <label>Membership Fee:</label>
+            <div>
+                <label><input type="radio" name="membershipFee" value="49" checked> $49</label><br>
+                <label><input type="radio" name="membershipFee" value="59"> $59</label>
+            </div>
+        </div>
+
+        <label>Preferred Hours (optional): <input type="number" id="customHours" min="1" /></label>
+        <label>Frequency (per month): <input type="number" id="frequency" value="1" min="1" /></label>
+
+        <button onclick="showBothCalculations()">Calculate</button>
+
+        <div class="result-boxes">
+            <div class="result-box" id="recommendationResult">
+                <div class="result-title">Recommended Estimate</div>
+            </div>
+            <div class="result-box" id="customResult">
+                <div class="result-title">Customer's Preference</div>
+            </div>
+            <div id="spielResult" class="result-box"></div>
+
+        </div>
+
+        <div class="note" style="color: orange; font-style: italic;">Note: Additional Hrs and premiums + $23hr <br>bug :
+            if 5 hrs recommend 6hr voucher!.
+        </div>
+    </section>
+
+    <section id="termNegotiation">
+        <div class="container">
+            <h2>Term Negotiation Calculator</h2>
+
+            <label for="plan">Select Plan:</label>
+            <select id="plan" onchange="updateDiscounts()">
+                <option value="49">Forever Clean $49/mo</option>
+                <option value="59">Forever Clean $59/mo</option>
+            </select>
+
+            <label for="discount">Select Negotiated Monthly Price:</label>
+            <select id="discount"></select>
+
+            <label>Select Commitment Term (months):</label>
+            <div class="radio-group">
+                <label><input type="radio" name="term" value="6" checked> 6</label>
+                <label><input type="radio" name="term" value="4"> 4</label>
+                <label><input type="radio" name="term" value="5"> 5</label>
+            </div>
+
+            <button onclick="calculateNegotiatedPrice()">Calculate</button>
+
+            <div class="result" id="negotiationResult">
+                Negotiated Total: $0.00
+            </div>
+        </div>
+    </section>
+
+
+    <section id="etfCalc">
+        <h2>Early Termination Fee Calculator</h2>
+        <label>Select Cohort:</label>
+        <select id="cohort">
+            <option value="cohort1">FULLPRICE/FOREVERCLEAN_49_1_6_99_10OFF</option>
+            <option value="cohort2">FOREVERCLEAN_59_1_6_25PERHOUR_10OFF</option>
+            <option value="cohort3">FOREVERCLEAN_49_1_6_35PERHOUR_10OFF</option>
+            <option value="cohort4">FOREVERCLEAN_59_1_6_35PERHOUR_10OFF</option>
+        </select>
+        <label>Cleaning Hours: <input type="number" id="hours" min="1" max="12" /></label>
+        <button onclick="calculateFee()">Calculate</button>
+        <div class="result" id="result">Result: $0.00</div>
+        <div class="note">Voucher discount applies only to 49 full price</div>
+    </section>
+
+    <section id="otcCalc">
+        <h2>One-Time & Trial Cleaning Calculator</h2>
+        <label>Enter Hours: <input type="number" id="hoursOtc" placeholder="e.g. 3" /></label>
+        <div id="resultsOtc"></div>
+    </section>
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>
