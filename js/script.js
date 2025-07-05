@@ -43,29 +43,31 @@ function getRecommendedHours(beds, baths) {
     // 2 HR: 1 bath, 0 bed
     if (baths === 1 && beds === 0) return 2;
 
-    // ✅ 3 HR: 1 bath, 1 bed
-    if (baths === 1 && beds === 1) return 3;
+// ✅ 3 HR: 1 bath, 1 bed
+if (baths === 1 && beds === 1) return 3;
 
-    // 4 HR: 1 bath & 2 beds OR 2 baths & (1–2 beds)
-    if ((baths === 1 && beds === 2) ||
-        (baths === 2 && (beds === 1 || beds === 2))) {
-        return 4;
-    }
-
-    // 6 HR:
-    // - 2 baths & 3 beds
-    // - 3 baths & 2–3 beds
-    // - 3+ baths & 4+ beds
-    if (
-        (baths === 2 && beds === 3) ||
-        (baths === 3 && (beds === 2 || beds === 3)) ||
-        (baths >= 3 && beds >= 4)
-    ) {
-        return 6;
-    }
-
-    return 2; // fallback
+// ✅ 4 HR: 1 bath & 2 beds OR 2 baths & (1–2 beds) OR 3 baths & 1 bed
+if (
+    (baths === 1 && beds === 2) ||
+    (baths === 2 && (beds === 1 || beds === 2)) ||
+    (baths === 3 && beds === 1)
+) {
+    return 4;
 }
+
+// ✅ 6 HR:
+// - 2 baths & 3 beds
+// - 3 baths & 2–3 beds
+// - 3+ baths & 4+ beds
+if (
+    (baths === 2 && beds === 3) ||
+    (baths === 3 && (beds === 2 || beds === 3)) ||
+    (baths >= 3 && beds >= 4)
+) {
+    return 6;
+}
+
+return 2; // fallback
 
 
 
