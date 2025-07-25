@@ -32,18 +32,29 @@ function showSection(id) {
     document.getElementById(id).classList.add("active");
 }
 
-// ✅ Updated function: Automatically returns 6 hours for 3+ beds or baths
+// ✅ Updated based on the Time Recommendation Table from Homeaglow
 function getRecommendedHours(beds, baths) {
-    if (beds >= 3 || baths >= 3) return 6;
+    beds = parseInt(beds);
+    baths = parseInt(baths);
 
-    if (baths === 1 && beds === 0) return 2;
+    // 6 HR: 3+ beds and 3+ baths, or 2+ beds and 3+ baths
+    if (baths >= 3 && beds >= 2) return 6;
+    if (baths >= 3 && beds === 1) return 6;
+
+    // 4 HR: 
+    if ((baths === 2 && beds === 1) || 
+        (baths === 2 && beds === 2) ||
+        (baths === 1 && beds === 2) || 
+        (baths === 1 && beds === 3)) return 4;
+
+    // 3 HR:
     if (baths === 1 && beds === 1) return 3;
-    if (
-        (baths === 1 && beds === 2) ||
-        (baths === 2 && beds === 1)
-    ) return 4;
 
-    return 2; // default fallback
+    // 2 HR:
+    if (baths === 1 && beds === 0) return 2;
+
+    // Default fallback
+    return 2;
 }
 
 function getSelectedMembershipFee() {
