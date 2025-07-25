@@ -34,28 +34,39 @@ function showSection(id) {
 
 // ✅ Updated based on the Time Recommendation Table from Homeaglow
 function getRecommendedHours(beds, baths) {
-    beds = parseInt(beds);
-    baths = parseInt(baths);
+  beds = parseInt(beds);
+  baths = parseInt(baths);
 
-    // 6 HR: 3+ beds and 3+ baths, or 2+ beds and 3+ baths
-    if (baths >= 3 && beds >= 2) return 6;
-    if (baths >= 3 && beds === 1) return 6;
+  // 6 HR if 3+ bedrooms or 3+ bathrooms
+  if (beds >= 3 || baths >= 3) return 6;
 
-    // 4 HR: 
-    if ((baths === 2 && beds === 1) || 
-        (baths === 2 && beds === 2) ||
-        (baths === 1 && beds === 2) || 
-        (baths === 1 && beds === 3)) return 4;
+  // 4 HR if 2 beds + 2 baths
+  if (beds === 2 && baths === 2) return 4;
 
-    // 3 HR:
-    if (baths === 1 && beds === 1) return 3;
+  // 4 HR if 1 bed + 2 baths, 2 beds + 1 bath, or 3 beds + 1 bath
+  if (
+    (beds === 1 && baths === 2) ||
+    (beds === 2 && baths === 1) ||
+    (beds === 3 && baths === 1)
+  ) return 4;
 
-    // 2 HR:
-    if (baths === 1 && beds === 0) return 2;
+  // 3 HR if 1 bed + 1 bath
+  if (beds === 1 && baths === 1) return 3;
 
-    // Default fallback
-    return 2;
+  // 2 HR if 0 bed + 1 bath
+  if (beds === 0 && baths === 1) return 2;
+
+  // Default fallback
+  return 2;
 }
+
+function calculate() {
+  const beds = document.getElementById('bedrooms').value;
+  const baths = document.getElementById('bathrooms').value;
+  const hours = getRecommendedHours(beds, baths);
+  document.getElementById('result').textContent = `Recommended Cleaning Time: ${hours} HR`;
+}
+
 
 function getSelectedMembershipFee() {
     return parseInt(document.querySelector('input[name="membershipFee"]:checked').value);
